@@ -1,4 +1,4 @@
-# FreeTokenOreore
+# FreeTokenMainOnWin
 
 Windows 上で FreeToken main を動かすための環境。
 
@@ -7,7 +7,8 @@ Windows 上で FreeToken main を動かすための環境。
 ```powershell
 uv sync
 
-git clone https://github.com/FlashML-org/FreeToken.git .\src\FreeToken
+# git clone https://github.com/FlashML-org/FreeToken.git .\src\FreeToken
+git clone https://github.com/seeker3600/FreeToken.git .\src\FreeToken
 
 .\tools\prepare.ps1
 ```
