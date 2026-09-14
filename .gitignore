@@ -1,0 +1,5 @@
+.venv/
+src/FreeToken/
+**pycache**/
+*.pyc
+.env

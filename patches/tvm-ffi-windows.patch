@@ -1,0 +1,32 @@
+diff --git a/tvm_ffi/cpp/extension.py b/tvm_ffi/cpp/extension.py
+--- a/tvm_ffi/cpp/extension.py
++++ b/tvm_ffi/cpp/extension.py
+@@ -400,7 +400,7 @@ def _generate_ninja_build(  # noqa: PLR0915, PLR0912
+     tvm_ffi_lib_name = tvm_ffi_lib.stem
+     if IS_WINDOWS:
+         default_cflags = ["/O2", "/MD"]
+-        default_cxxflags = ["/std:c++17", "/MD", "/EHsc"]
++        default_cxxflags = ["/std:c++20", "/O2", "/MD", "/EHsc"]
+         _win_warnings = [
+             "/wd4819",
+             "/wd4251",
+@@ -415,12 +415,18 @@ def _generate_ninja_build(  # noqa: PLR0915, PLR0912
+         ]
+         default_cflags += _win_warnings
+         default_cxxflags += _win_warnings
+-        default_cuda_cflags = ["-Xcompiler", "/std:c++17", "/O2"]
++        default_cuda_cflags = ["-Xcompiler", "/std:c++20", "-Xcompiler", "/O2"]
+         default_ldflags = [
+             "/DLL",
+             f"/LIBPATH:{tvm_ffi_lib_path}",
+             f"{tvm_ffi_lib_name}.lib",
+         ]
++        if with_cuda:
++            cuda_home = Path(_find_cuda_home())
++            default_ldflags += [
++                f'/LIBPATH:"{cuda_home / "lib" / "x64"}"',
++                "cudart.lib",
++            ]
+     else:
+         default_cflags = ["-fPIC", "-O2"]
+         default_cxxflags = ["-std=c++17", "-fPIC", "-O2"]
